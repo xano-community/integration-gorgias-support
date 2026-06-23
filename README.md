@@ -34,16 +34,16 @@ Claude will clone the repo and push the functions to your workspace.
    ```sh
    git clone https://github.com/xano-community/integration-gorgias-support.git
    cd integration-gorgias-support
-   xano workspace:push . -w <your-workspace-id>
+   xano workspace push . -w <your-workspace-id>
    ```
 
-   Replace `<your-workspace-id>` with the ID from `xano workspace:list`.
+   Replace `<your-workspace-id>` with the ID from `xano workspace list`.
 
 ## Configure Credentials
 
 1. Log in to your Gorgias account at yourcompany.gorgias.com.
 2. Go to Settings > REST API and create a new API token.
-3. Note your account subdomain (the part before .gorgias.com).
+3. Note your account subdomain (the part before .gorgias.com) — you will pass this as the `domain` input on every function call.
 4. In Xano, set the following environment variables:
    - `GORGIAS_EMAIL` — your Gorgias account email
    - `GORGIAS_API_TOKEN` — the API token you created
@@ -52,6 +52,8 @@ Environment variables used by this integration:
 
 - `GORGIAS_API_TOKEN`
 - `GORGIAS_EMAIL`
+
+**Runtime input — `domain`:** All five functions require a `domain` input parameter. Pass your Gorgias account subdomain (the part before `.gorgias.com`) on each call. This is not an environment variable — it is supplied by the caller at runtime so one Xano workspace can serve multiple Gorgias accounts.
 
 See `.env.example` for a template.
 
@@ -62,6 +64,7 @@ Call any function from another function, task, or API endpoint using `function.r
 ```xs
 function.run "gorgias_create_ticket" {
   input = {
+    domain: "mycompany",
     // See function signature for required parameters
   }
 } as $result

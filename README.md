@@ -34,7 +34,7 @@ Claude will clone the repo and push the functions to your workspace.
    ```sh
    git clone https://github.com/xano-community/integration-gorgias-support.git
    cd integration-gorgias-support
-   xano workspace push . -w <your-workspace-id>
+   xano workspace push -w <your-workspace-id>
    ```
 
    Replace `<your-workspace-id>` with the ID from `xano workspace list`.
